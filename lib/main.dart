@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'components/shiny-button/shiny_button.dart';
+import 'package:shine_button/widgets/shiny-button/shiny_button.dart';
 import 'global/global.dart' as global;
 
 Future<void> main() async {
