@@ -1,8 +1,6 @@
 import 'dart:ui';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:shine_button/utils/GestureDetector/gesturedetector_utils.dart';
-import 'package:shine_button/utils/painter/painter_controller.dart';
 import 'package:shine_button/global/global.dart' as global;
 import 'package:shine_button/constants/constants.dart';
 import 'package:shine_button/widgets/painter/painter.dart';
@@ -21,7 +19,7 @@ class _ShinyButtonState extends State<ShinyButton> {
   void initState() {
     super.initState();
     _cameracontroller =
-        CameraController(global.cameras[1], ResolutionPreset.max);
+        CameraController(global.cameras[0], ResolutionPreset.max);
     _cameracontroller.initialize().then((_) {
       if (!mounted) {
         return;
