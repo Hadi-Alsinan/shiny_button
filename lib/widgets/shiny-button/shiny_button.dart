@@ -23,12 +23,12 @@ class _ShinyButtonState extends State<ShinyButton>
   void initState() {
     super.initState();
     _animationcontroller = AnimationController(
-      duration: const Duration(milliseconds: 100),
+      duration: const Duration(milliseconds: 50),
       vsync: this,
     );
 // _cameracontroller is initialized with the first camera in the list of cameras
     _cameracontroller =
-        CameraController(global.cameras[0], ResolutionPreset.max);
+        CameraController(global.cameras[1], ResolutionPreset.max);
     _cameracontroller.initialize().then((_) {
       if (!mounted) {
         return;
@@ -63,17 +63,17 @@ class _ShinyButtonState extends State<ShinyButton>
       child: ScaleTransition(
         scale: Tween<double>(
           begin: 1.0,
-          end: 0.8,
+          end: 0.95,
         ).animate(_animationcontroller),
         child: Material(
-          elevation: 20,
+          elevation: 10,
           borderRadius: outterBorderRadius,
           child: Container(
             width: compnentWidth,
             height: compnentHeight,
             decoration: BoxDecoration(
               borderRadius: innerBorderRadius,
-              border: Border.all(color: Colors.grey, width: 3),
+              border: Border.all(color: (Colors.grey[300])!, width: 3),
             ),
             child: Stack(
               alignment: Alignment.center,
@@ -90,7 +90,7 @@ class _ShinyButtonState extends State<ShinyButton>
                         imageFilter: ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
                         child: ColorFiltered(
                           colorFilter: ColorFilter.mode(
-                              Colors.grey.withOpacity(0.8), BlendMode.color),
+                              Colors.grey.withOpacity(0.6), BlendMode.color),
                           child: SizedBox(
                               width: compnentWidth,
                               height: compnentHeight,
