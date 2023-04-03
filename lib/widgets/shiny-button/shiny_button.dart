@@ -1,9 +1,7 @@
-import 'dart:ui';
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:shine_button/global/global.dart' as global;
 import 'package:shine_button/constants/constants.dart';
 import 'package:shine_button/widgets/painter/painter.dart';
+import 'package:shine_button/widgets/reflaction/reflaction.dart';
 
 class ShinyButton extends StatefulWidget {
   const ShinyButton({super.key});
@@ -15,49 +13,31 @@ class ShinyButton extends StatefulWidget {
 class _ShinyButtonState extends State<ShinyButton>
     with TickerProviderStateMixin {
   // CameraController to control the camera and get the preview of it
-  late CameraController _cameracontroller;
   // AnimationController to control the animation of the button
   late AnimationController _animationcontroller;
 
   @override
   void initState() {
     super.initState();
+    // _animationcontroller is initialized with a duration of 50 milliseconds and the vsync is set to this
     _animationcontroller = AnimationController(
       duration: const Duration(milliseconds: 50),
       vsync: this,
     );
-// _cameracontroller is initialized with the first camera in the list of cameras
-    _cameracontroller =
-        CameraController(global.cameras[1], ResolutionPreset.max);
-    _cameracontroller.initialize().then((_) {
-      if (!mounted) {
-        return;
-      }
-      setState(() {});
-    }).catchError((Object e) {
-      if (e is CameraException) {
-        switch (e.code) {
-          case 'CameraAccessDenied':
-            // Handle access errors here.
-            break;
-          default:
-            // Handle other errors here.
-            break;
-        }
-      }
-    });
+// _cameracontroller is initialized with the first camera in the list of cameras and the resolution is set to max
   }
 
   @override
   void dispose() {
-    _cameracontroller.dispose();
     _animationcontroller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    // GestureDetector is used to detect the tap, tap down and tap cancel to give the button a pressed effect
     return GestureDetector(
+      onTap: () => _animationcontroller.forward(),
       onTapDown: (_) => _animationcontroller.forward(),
       onTapCancel: () => _animationcontroller.reverse(),
       child: ScaleTransition(
@@ -79,27 +59,7 @@ class _ShinyButtonState extends State<ShinyButton>
               alignment: Alignment.center,
               fit: StackFit.expand,
               children: [
-                // ClipRRect is used to change the shape of the camerapreview and apply the imagefilters to it
-                ClipRRect(
-                  borderRadius: innerBorderRadius,
-                  child: OverflowBox(
-                    alignment: Alignment.center,
-                    child: FittedBox(
-                      fit: BoxFit.fitWidth,
-                      child: ImageFiltered(
-                        imageFilter: ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
-                        child: ColorFiltered(
-                          colorFilter: ColorFilter.mode(
-                              Colors.grey.withOpacity(0.6), BlendMode.color),
-                          child: SizedBox(
-                              width: compnentWidth,
-                              height: compnentHeight,
-                              child: CameraPreview(_cameracontroller)),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                const Reflaction(),
                 Align(
                   alignment: Alignment.center,
                   child: Text(

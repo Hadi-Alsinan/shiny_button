@@ -6,6 +6,7 @@ import 'global/global.dart' as global;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // make sure to initialize the cameras during the app initialization and save it in a global variable
   global.cameras = await availableCameras();
   runApp(const ProviderScope(child: ShinnyButtonWrapper()));
 }
@@ -19,10 +20,10 @@ class ShinnyButtonWrapper extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // ignore: prefer_const_constructors
-      home: Scaffold(
+     
+      home: const Scaffold(
           backgroundColor: Colors.white,
-          body: const Center(child: ShinyButton())),
+          body:  Center(child: ShinyButton())),
     );
   }
 }
