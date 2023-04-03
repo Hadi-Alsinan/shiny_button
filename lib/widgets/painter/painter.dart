@@ -20,7 +20,7 @@ class _PainterState extends ConsumerState<Painter> {
       onTapDown: PainterUtils(context: context, ref: ref).onTapDown,
       child: RepaintBoundary(
         child: CustomPaint(
-          size: Size(compnentWidth, compnentHeight),
+          size: const Size(compnentWidth, compnentHeight),
           painter: SumdgePainter(
             points: sumdgePoints,
           ),
